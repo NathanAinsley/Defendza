@@ -17,14 +17,14 @@ print (Key)
 
 
 class Searcher():
-    def CompanyNumberFromName(Name):
+    def getCompanyNumberFromName(Name):
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.search_companies(Name)
         r = r.json()
         Company_Number = (r['items'][0]['company_number'])
         print (Company_Number)
         return Company_Number
-    def CompanyAddressFromNumber(Number):
+    def getCompanyAddressFromNumber(Number):
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.address(Number)
         r = r.json()
@@ -36,7 +36,7 @@ class Searcher():
         Address = AddressLine1 +','+AddressLine2+','+Country+','+Locality+','+Postcode
         print(Address)
         return Address
-    def CompanyStakeHoldersByNumber(Number):
+    def getCompanyStakeHoldersByNumber(Number):
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.persons_significant_control(Number)
         r = r.json()
@@ -54,14 +54,15 @@ class Searcher():
         return Members
             
         #will return a list of all stake holders in the company, including their personal details.
-    def CompanyProfileByNumber(Number):
+    def getFillingHistory(Number):
         search_client=chwrapper.Search(access_token=Key)
-        r = search_client.profile(Number)
+        r = search_client.filing_history(Number)
         r = r.json()
         print(r)
         #returns the company profile
         
         
-CompanyNum = Searcher.CompanyNumberFromName('Defendza')
-Searcher.CompanyAddressFromNumber(CompanyNum)
-Searcher.CompanyStakeHoldersByNumber(CompanyNum)
+CompanyNum = Searcher.getCompanyNumberFromName('Defendza')
+Searcher.getCompanyAddressFromNumber(CompanyNum)
+Searcher.getCompanyStakeHoldersByNumber(CompanyNum)
+Searcher.getFillingHistory(CompanyNum)
