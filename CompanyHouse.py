@@ -40,7 +40,19 @@ class Searcher():
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.persons_significant_control(Number)
         r = r.json()
-        print(r)
+        Members=[]
+        i = 0
+        for row in r['items']:
+            Name = r['items'][i]['name']
+            month = r['items'][i]['date_of_birth']['month']
+            year = r['items'][i]['date_of_birth']['year']
+            DOB = str(month)+"/"+str(year)
+            member=str(Name)+","+str(DOB)
+            Members.append(member)
+            i+=1
+        print(Members)
+        return Members
+            
         #will return a list of all stake holders in the company, including their personal details.
     def CompanyProfileByNumber(Number):
         search_client=chwrapper.Search(access_token=Key)
@@ -52,4 +64,4 @@ class Searcher():
         
 CompanyNum = Searcher.CompanyNumberFromName('Defendza')
 Searcher.CompanyAddressFromNumber(CompanyNum)
-Searcher.CompanyProfileByNumber(CompanyNum)
+Searcher.CompanyStakeHoldersByNumber(CompanyNum)
