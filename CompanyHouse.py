@@ -28,11 +28,26 @@ class Searcher():
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.address(Number)
         r = r.json()
-        AddressLine1 = r['address_line_1']
-        AddressLine2 = r['address_line_2']
-        Country = r['country']
-        Locality = r['locality']
-        Postcode = r['postal_code']
+        try:
+            AddressLine1 = r['address_line_1']
+        except:
+            AddressLine1 = "AddressLine1 Value Missing"
+        try:
+            AddressLine2 = r['address_line_2']
+        except:
+            AddressLine2 = "AddressLine2 Value Missing"
+        try:
+            Country = r['country']
+        except:
+            Country = "Country Value Missing"
+        try:
+            Locality = r['locality']
+        except:
+            Locality = "Localiy Value Missing"
+        try:
+            Postcode = r['postal_code']
+        except:
+            Postcode = "Postcode Value Missing"
         Address = AddressLine1 +','+AddressLine2+','+Country+','+Locality+','+Postcode
         print(Address)
         return Address
@@ -43,26 +58,72 @@ class Searcher():
         Members=[]
         i = 0
         for row in r['items']:
-            Name = r['items'][i]['name']
-            month = r['items'][i]['date_of_birth']['month']
-            year = r['items'][i]['date_of_birth']['year']
+            try:
+                Name = r['items'][i]['name']
+            except:
+                Name = "Name Value Missing"
+            try:
+                month = r['items'][i]['date_of_birth']['month']
+            except:
+                month = "Month Value Missing"
+            try:
+                year = r['items'][i]['date_of_birth']['year']
+            except:
+                year = "Year Value Missing"
             DOB = str(month)+"/"+str(year)
             member=str(Name)+","+str(DOB)
             Members.append(member)
             i+=1
         print(Members)
         return Members
-            
-        #will return a list of all stake holders in the company, including their personal details.
     def getFillingHistory(Number):
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.filing_history(Number)
         r = r.json()
-        print(r)
-        #returns the company profile
+        Files = []
+        i = 0
+        for row in r['items']:
+            try:
+                Date = r['items'][i]['date']
+            except:
+                Date = "No Date Found"
+            try:
+                Category = r['items'][i]['category']
+            except:
+                Category = "No Category Found"
+            try:
+                Description = r['items'][i]['description']
+            except:
+                Description = "No Description Found"
+            try:
+                Type = r['items'][i]['type']
+            except:
+                Type = "No Type Found"
+            Page = r['items'][i]['pages']
+            Barcode = r['items'][i]['barcode']
+            Doc = ("Date: " + str(Date) + "," +
+                   "Category: " + str(Category) + "," +
+                   "Description: " + str(Description) + "," +
+                   "Type: " + str(Type) + "," +
+                   "Page: " + str(Page) + "," +
+                   "Barcode: " + str(Barcode) )
+            i+=1
+            Files.append(Doc)
+            print(Files)
+        return Files
+    def getFilingAmount(Number):
+        search_client=chwrapper.Search(access_token=Key)
+        r = search_client.filing_history(Number)
+        r = r.json()
+        FilingAmount = r['total_count']
+        print(FilingAmount)
+        return FilingAmount
+
         
         
-CompanyNum = Searcher.getCompanyNumberFromName('Defendza')
+CompanyNum = Searcher.getCompanyNumberFromName('defendza')
 Searcher.getCompanyAddressFromNumber(CompanyNum)
 Searcher.getCompanyStakeHoldersByNumber(CompanyNum)
 Searcher.getFillingHistory(CompanyNum)
+Searcher.getFilingAmount(CompanyNum)
+
