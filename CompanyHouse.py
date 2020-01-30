@@ -49,6 +49,7 @@ class Searcher():
         print(r)
         #returns the company profile
         
+        
 CompanyNum = Searcher.CompanyNumberFromName('Defendza')
 Searcher.CompanyAddressFromNumber(CompanyNum)
 Searcher.CompanyProfileByNumber(CompanyNum)
