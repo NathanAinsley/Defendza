@@ -18,6 +18,11 @@ print (Key)
 
 class Searcher():
     def getCompanyNumberFromName(Name):
+        """Returns string containing the company number.
+
+        Args:
+          Number (str): Company name to search on.
+        """
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.search_companies(Name)
         r = r.json()
@@ -25,6 +30,11 @@ class Searcher():
         print (Company_Number)
         return Company_Number
     def getCompanyAddressFromNumber(Number):
+        """Returns string containing the company address.
+
+        Args:
+          Number (str): Company number to search on.
+        """
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.address(Number)
         r = r.json()
@@ -52,6 +62,11 @@ class Searcher():
         print(Address)
         return Address
     def getCompanyStakeHoldersByNumber(Number):
+        """Returns a list of all steakholders within the company.
+
+        Args:
+          Number (str): Company number to search on.
+        """
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.persons_significant_control(Number)
         r = r.json()
@@ -77,6 +92,11 @@ class Searcher():
         print(Members)
         return Members
     def getFillingHistory(Number):
+        """Returns a list of all files that have been filed by the company.
+
+        Args:
+          Number (str): Company number to search on.
+        """
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.filing_history(Number)
         r = r.json()
@@ -99,8 +119,14 @@ class Searcher():
                 Type = r['items'][i]['type']
             except:
                 Type = "No Type Found"
-            Page = r['items'][i]['pages']
-            Barcode = r['items'][i]['barcode']
+            try:
+                Page = r['items'][i]['pages']
+            except:
+                Page = "No Pages Found"
+            try:
+                Barcode = r['items'][i]['barcode']
+            except:
+                Barcode = "No Barcode Found"
             Doc = ("Date: " + str(Date) + "," +
                    "Category: " + str(Category) + "," +
                    "Description: " + str(Description) + "," +
@@ -111,11 +137,21 @@ class Searcher():
             Files.append(Doc)
             print(Files)
         return Files
+    
     def getFilingAmount(Number):
+        """Returns the amount of files filed by the company.
+
+        Args:
+          Number (str): Company number to search on.
+        """
+        param = 
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.filing_history(Number)
         r = r.json()
-        FilingAmount = r['total_count']
+        try:
+            FilingAmount = r['total_count']
+        except:
+            FilingAmount = "No FilingAmount Found"
         print(FilingAmount)
         return FilingAmount
 
