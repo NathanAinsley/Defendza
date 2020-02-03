@@ -144,7 +144,6 @@ class Searcher():
         Args:
           Number (str): Company number to search on.
         """
-        param = 
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.filing_history(Number)
         r = r.json()
