@@ -9,11 +9,6 @@ while finalcheck != "y":
         checker = str(input("(y/n)"))
     checker = "n"
     while checker !="y":
-        WhoIsAPI=str(input("Please enter the Whois Api Key: "))
-        print("Is " + WhoIsAPI + " correct?")
-        checker = str(input("(y/n)"))
-    checker = "n"
-    while checker !="y":
         ShodanAPI=str(input("Please enter the Shodan Api Key: "))
         print("Is " + ShodanAPI + " correct?")
         checker = str(input("(y/n)"))
@@ -36,8 +31,7 @@ while finalcheck != "y":
 
 
 data = {  'companieshouse':CompaniesHouseAPI ,
-        'whois':WhoIsAPI ,
-        'shodan':ShodanAPI ,
+        'Shodan':ShodanAPI ,
         'linkedin':LinkedinAPI ,
         'DNSXM':DNSMXAPI ,
         'haveibeenpwned':PwnedAPI}
