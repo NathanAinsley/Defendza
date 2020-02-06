@@ -49,7 +49,7 @@ These values are seperated by a string and then stored as one large string withi
 The Final Function included is to return the amount of filling that the company has done.  
 ```python
 CompanyHouse.Searcher.getFilingAmount(CompanyNum) # returns an int containing the amount of files the company has filled  
-  
+```
   
   
 ### WhoIs  
