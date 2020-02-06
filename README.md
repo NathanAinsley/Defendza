@@ -13,8 +13,19 @@ CompanyHouse.Searcher.getCompanyAddressFromNumber(CompanyNum) # returns an addre
 ```
 Running the method above will return a string containing the address of the company, if you wish to seperate the values into their components then they are seperated by single a ,  
 The Values returned are:  
-Address Line 1  
-Address Line 2  
-Country  
-Locality (aka county)  
-Postal Code  
+ - Address Line 1  
+ - Address Line 2  
+ - Country  
+ - Locality (aka county)  
+ - Postal Code  
+  
+You can also then run the following command to get details on the Company Steakholders  
+```python
+CompanyHouse.Searcher.getCompanyStakeHoldersByNumber(CompanyNum) # returns details on steakholders  
+```
+This command will return with details on the Steakholders which includes their name and date of birth. This info is returned in a list, with the name and Date of birth being again seperated by a single ,  
+Values Returned are:  
+ - Name  
+ - Date of birth in format (mm/yyyy)  
+
+
