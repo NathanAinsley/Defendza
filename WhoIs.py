@@ -36,11 +36,12 @@ class Searcher:
                 Update = q.last_updated
                 Registrar = q.registrar
                 record = [((Name),(CreationDate),(ExpireDate),(Update),(Registrar),(Servers))]
+                Records = Records+(record)
                 i+=1
             except:
                 print("No Domain at: "+Domains[i])
                 i+=1
-            Records.append(record)
+           # Records = Records+(record)
         return Records
             
     def Reverse():
