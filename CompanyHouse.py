@@ -151,14 +151,14 @@ class Searcher():
             FilingAmount = r['total_count']
         except:
             FilingAmount = "No FilingAmount Found"
-        print(FilingAmount)
+        print(type(FilingAmount))
         return FilingAmount
 
         
         
 CompanyNum = Searcher.getCompanyNumberFromName('defendza')
-Searcher.getCompanyAddressFromNumber(CompanyNum)
-Searcher.getCompanyStakeHoldersByNumber(CompanyNum)
-Searcher.getFillingHistory(CompanyNum)
+#Searcher.getCompanyAddressFromNumber(CompanyNum)
+#Searcher.getCompanyStakeHoldersByNumber(CompanyNum)
+#Searcher.getFillingHistory(CompanyNum)
 Searcher.getFilingAmount(CompanyNum)
 

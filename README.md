@@ -19,6 +19,7 @@ The Values returned are:
  - Locality (aka county)  
  - Postal Code  
   
+  
 You can also then run the following command to get details on the Company Steakholders  
 ```python
 CompanyHouse.Searcher.getCompanyStakeHoldersByNumber(CompanyNum) # returns details on steakholders  
@@ -27,5 +28,28 @@ This command will return with details on the Steakholders which includes their n
 Values Returned are:  
  - Name  
  - Date of birth in format (mm/yyyy)  
-
-
+  
+  
+You can also use the following command to gain all the filling that the company has done. 
+```python
+CompanyHouse.Searcher.getFillingHistory(CompanyNum) # returns array containing Filling details
+```
+Passing this function the Company number will return a rather large array on all the files that the company has filled.  
+Values Returned:  
+ - Date of Filling  
+ - Category of Filling  
+ - Description of File  
+ - Type of File  
+ - The Amount of Pages in File  
+ - Barcode of File  
+  
+These values are seperated by a string and then stored as one large string within an array.  
+  
+  
+The Final Function included is to return the amount of filling that the company has done.  
+```python
+CompanyHouse.Searcher.getFilingAmount(CompanyNum) # returns an int containing the amount of files the company has filled  
+  
+  
+  
+### WhoIs  
