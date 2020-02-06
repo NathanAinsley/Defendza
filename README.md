@@ -2,7 +2,7 @@
 
 ## Modules
 ### Companies House
-Use this module to get information on a company from the internet.  
+#### Use this module to get information on a company from the internet.  
 To start off you will need to get the company number from the Module, todo this you will need to pass it the name of the company,
 ```python
 CompanyHouse.Searcher.getCompanyNumberFromName(CompanyNameHere) # returns the company number
@@ -53,3 +53,48 @@ CompanyHouse.Searcher.getFilingAmount(CompanyNum) # returns an int containing th
   
   
 ### WhoIs  
+  
+#### This Class and Module allows you to feed it the name of a company and return information on any website that might be linked to such a company.  
+  
+The main funcion of this method is the 
+```python
+Searcher.GetDomainInfoByName(v):
+```
+This Function when passed a string containing the name of the domain you want to search EXCLUDING THE EXTENSION, will then run a search against the top 10 domain extensions for any domain registered under that name.  
+The function runs another function called 
+```python
+Setup.Domains(v)
+```
+which attaches to the end of the search term the top 10 domain extensions along with 2 other common ones and then returns a list containing those domain names.  
+``python
+def Domains(v):
+        com = v + ".com"
+        couk = v + ".co.uk"
+        uk = v + ".uk"
+        org = v + ".org"
+        net = v + ".net"
+        us = v + ".us"
+        de = v + ".de"
+        cn = v + ".cn"
+        info = v + ".info"
+        nl = v + ".nl"
+        eu = v + ".eu"
+        ru = v + ".ru"
+        Domains = [com,couk,uk,org,net,us,de,cn,info,nl,eu,ru]
+        return Domains
+```
+This Array is then Parsed and information is retrieved from the module to be returned to the user.  
+  
+Variables Returned:
+ - Name of Domain  
+ - Creation Date  
+ - Expiration date  
+ - Last Updated Date  
+ - Registrar Details if Availible  
+ - Servers Associated To Domain  
+Some of the infomation returned might be redacted due to privacy of the owner.  
+All the data returned will be seperated by a single comma in the order above, within a list.  
+  
+Another Method is then run along side this which is the Socket method
+
+
