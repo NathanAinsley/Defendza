@@ -92,6 +92,7 @@ Variables Returned:
  - Last Updated Date  
  - Registrar Details if Availible  
  - Servers Associated To Domain  
+  
 Some of the infomation returned might be redacted due to privacy of the owner.  
 All the data returned will be seperated by a single comma in the order above, within a list.  
   
