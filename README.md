@@ -66,7 +66,7 @@ The function runs another function called
 Setup.Domains(v)
 ```
 which attaches to the end of the search term the top 10 domain extensions along with 2 other common ones and then returns a list containing those domain names.  
-``python
+```python
 def Domains(v):
         com = v + ".com"
         couk = v + ".co.uk"
