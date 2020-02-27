@@ -19,4 +19,22 @@ api = Shodan(Key)
 class Shodan:
     def Shodan(v):
         ipinfo = api.host(v)
-        return (ipinfo)
+        try:
+            regional_code = ipinfo['region_code']
+        except:
+            regional_code = 'No regional Code Recieved'
+        try:
+            country_code = ipinfo['country_code']
+        except:
+            country_code = 'No country Code Recieved'
+        try:
+            city = ipinfo['city']
+        except:
+            city = 'No City Revcieved'
+        
+        Returned = (regional_code,country_code,city)
+        return Returned
+            
+        
+        
+print(Shodan.Shodan('184.168.221.38'))

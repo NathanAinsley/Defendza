@@ -157,8 +157,8 @@ class Searcher():
         
         
 CompanyNum = Searcher.getCompanyNumberFromName('defendza')
-#Searcher.getCompanyAddressFromNumber(CompanyNum)
+Searcher.getCompanyAddressFromNumber(CompanyNum)
 #Searcher.getCompanyStakeHoldersByNumber(CompanyNum)
 #Searcher.getFillingHistory(CompanyNum)
-Searcher.getFilingAmount(CompanyNum)
+#Searcher.getFilingAmount(CompanyNum)
 

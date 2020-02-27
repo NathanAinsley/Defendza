@@ -100,10 +100,7 @@ class Searcher:
         response_dict = json.loads(text)
         response_list = (response_dict['domainsList'])
         for records in response_list:
-           
-            
             domain = str(records)
-            print("Domain Name: " + domain)
             Searcher.GetDomainInfoByNameWithExtension(domain)
             
         
@@ -119,15 +116,47 @@ class Searcher:
             Registrar = q.registrar
             Ip = Searcher.SingleSocket(Domains)
             record = [((Name),(CreationDate),(ExpireDate),(Update),(Registrar),(Servers),(Ip))]
+            Searcher.SinglePrint(record)
         except:
             print("No Domain at: "+Domains)
-        return record
 
 
         
     def SingleSocket(v):
         d = socket.gethostbyname(v)
         return d
+    
+    def SinglePrint(records):
+        for record in records:
+            try:
+                print("Domain Name: " + str(record[0]))
+            except:
+                print("No Domain Name Listed")
+            try:
+                print("Creation Date: " + str(record[1]))
+            except:
+                print("No Domain Name Listed")
+            try:
+                print("Expiration Date: " + str(record[2]))
+            except:
+                print("No Expiration Date Listed")
+            try:
+                print("Last Updated: " + str(record[3]))
+            except:
+                print("No Expiration Date Listed")
+            try:
+                print("Registrar name: " + str(record[4]))
+            except:
+                print("No Registrar Name listed")
+            try:
+                print("Servers: " + str(record[5]))
+            except:
+                print("No Servers Listed")
+            try:
+                print("IP Address: " + str(record[6]))
+            except:
+                print("No IP Address linked")
+            print("\n \n \n")
         
     def printer(returned):
         for records in returned:
