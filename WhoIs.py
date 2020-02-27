@@ -5,7 +5,6 @@ import json
 import os
 import sys
 import requests
-from urllib.request import urlopen
 import http.client as http
 
 dir = (os.path.dirname(os.path.realpath(sys.argv[0])))
