@@ -9,6 +9,16 @@ while finalcheck != "y":
         checker = str(input("(y/n)"))
     checker = "n"
     while checker !="y":
+        WhoIsXMLUserName=str(input("Please enter the WhoIsXML Api Username: "))
+        print("Is " + WhoIsXMLUserName + " correct?")
+        checker = str(input("(y/n)"))
+    checker = "n"
+    while checker !="y":
+        WhoIsXML=str(input("Please enter the WhoIsXML Api Key: "))
+        print("Is " + WhoIsXML + " correct?")
+        checker = str(input("(y/n)"))
+    checker = "n"
+    while checker !="y":
         ShodanAPI=str(input("Please enter the Shodan Api Key: "))
         print("Is " + ShodanAPI + " correct?")
         checker = str(input("(y/n)"))
@@ -31,6 +41,8 @@ while finalcheck != "y":
 
 
 data = {  'companieshouse':CompaniesHouseAPI ,
+        'whois':WhoIsXMLUserName ,
+        'whois':WhoIsXML ,
         'Shodan':ShodanAPI ,
         'linkedin':LinkedinAPI ,
         'DNSXM':DNSMXAPI ,
