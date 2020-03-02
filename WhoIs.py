@@ -1,11 +1,10 @@
-import whois
-import socket
 from urllib.request import urlopen, pathname2url
 import json
 import os
 import sys
-import requests
 import http.client as http
+from urllib.request import urlopen
+from pprint import pprint
 
 dir = (os.path.dirname(os.path.realpath(sys.argv[0])))
 Files = (dir+"/Config/config.json")
@@ -20,7 +19,7 @@ with open(Files, encoding="utf8") as data_file:
         except KeyError:
             print("Error loading value from json file, please delete the config.json file and run config.exe again please")
 
-class Setup:
+class Util:
     def Domains(v):
         com = v + ".com"
         couk = v + ".co.uk"
@@ -36,59 +35,47 @@ class Setup:
         ru = v + ".ru"
         Domains = [com,couk,uk,org,net,us,de,cn,info,nl,eu,ru]
         return Domains
+    def DeleteContents(file):
+        with open(file,"w"):
+            pass
+    def printer(returned):
+        pprint(returned)
 
-class Searcher:
-    def GetDomainInfoByName(v):
-        Domains = Setup.Domains(v)
-        i = 0
-        Records = []
-        while i < len(Domains):
-            try:
-                q = whois.query(Domains[i])
-                Servers = q.name_servers
-                Name = q.name
-                CreationDate = q.creation_date
-                ExpireDate = q.expiration_date
-                Update = q.last_updated
-                Registrar = q.registrar
-                Ip = Searcher.SingleSocket(Domains[i])
-                record = [((Name),(CreationDate),(ExpireDate),(Update),(Registrar),(Servers),(Ip))]
-                Records.append(record)
-                i+=1
-            except:
-                print("No Domain at: "+Domains[i])
-                i+=1
-        return Records
-    
-    
+class WhoIs:
 
-            
+    
+    def GetDomainInfoByName(domainName):
+        url = 'https://www.whoisxmlapi.com/whoisserver/WhoisService?domainName=' + domainName + '&apiKey=' + Key + "&outputFormat=JSON"
+        Data = (urlopen(url).read().decode('utf8'))
+        r = json.loads(Data)
+        r = r['WhoisRecord']
+        
+        return(r)
+        
+        
     def Reverse(SearchTerm1,SearchTerm2,ExcludeTerm1,ExcludeTerm2):
         
-
-#        dolladolla = 'https://user.whoisxmlapi.com/service/account-balance?apiKey=' + password
-#        ballance = requests.get(dolladolla)
-#        print(response)
+        
         
         payload_basic = {
-    'basicSearchTerms': {
-        'include': [
-            SearchTerm1,
-            SearchTerm2
-        ],
-        'exclude': [
-            ExcludeTerm1,ExcludeTerm2
-        ],
-    },
-    'searchType': 'current',
-    'mode': 'purchase',
-    'apiKey': Key,
-    'responseFormat': 'json'
-}
+                        'basicSearchTerms': {
+                                            'include': [
+                                                            SearchTerm1,
+                                                            SearchTerm2
+                                                        ],
+                                            'exclude': [
+                                                ExcludeTerm1,ExcludeTerm2
+                                                        ],
+                                            },
+                        'searchType': 'current',
+                        'mode': 'purchase',
+                        'apiKey': Key,
+                        'responseFormat': 'json'
+                        }
         headers = {
         'Content-Type': 'application/json',
         'Accept': 'application/json'
-    }   
+                    }   
     
         conn = http.HTTPSConnection('reverse-whois-api.whoisxmlapi.com')
         
@@ -98,103 +85,27 @@ class Searcher:
         text = response.read().decode('utf8')
         response_dict = json.loads(text)
         response_list = (response_dict['domainsList'])
+        Util.DeleteContents("reverseWhoIsOutput.json")
         for records in response_list:
             domain = str(records)
-            Searcher.GetDomainInfoByNameWithExtension(domain)
+            Data=(WhoIs.GetDomainInfoByName(domain))
+            with open("reverseWhoIsOutput.json",'a',encoding='utf-8') as outfile1:
+                json.dump(Data,outfile1,ensure_ascii=False,indent=4)
             
         
-    def GetDomainInfoByNameWithExtension(Domains):
-        record = ''
-        try:
-            q = whois.query(Domains)
-            Servers = q.name_servers
-            Name = q.name
-            CreationDate = q.creation_date
-            ExpireDate = q.expiration_date
-            Update = q.last_updated
-            Registrar = q.registrar
-            Ip = Searcher.SingleSocket(Domains)
-            record = [((Name),(CreationDate),(ExpireDate),(Update),(Registrar),(Servers),(Ip))]
-            Searcher.SinglePrint(record)
-        except:
-            print("No Domain at: "+Domains)
-
-
+class DNS:
+    def DNS_Lookup(domain):
+        Type = '_all'
+        Format = 'JSON'
         
-    def SingleSocket(v):
-        d = socket.gethostbyname(v)
-        return d
+        url = 'https://www.whoisxmlapi.com/whoisserver/DNSService?'+ 'apiKey=' + Key + '&domainName=' + domain + '&type=' + Type +'&outputFormat=' + Format
+        data = (urlopen(url).read().decode('utf8'))
+        r=json.loads(data)
+        return r
     
-    def SinglePrint(records):
-        for record in records:
-            try:
-                print("Domain Name: " + str(record[0]))
-            except:
-                print("No Domain Name Listed")
-            try:
-                print("Creation Date: " + str(record[1]))
-            except:
-                print("No Domain Name Listed")
-            try:
-                print("Expiration Date: " + str(record[2]))
-            except:
-                print("No Expiration Date Listed")
-            try:
-                print("Last Updated: " + str(record[3]))
-            except:
-                print("No Expiration Date Listed")
-            try:
-                print("Registrar name: " + str(record[4]))
-            except:
-                print("No Registrar Name listed")
-            try:
-                print("Servers: " + str(record[5]))
-            except:
-                print("No Servers Listed")
-            try:
-                print("IP Address: " + str(record[6]))
-            except:
-                print("No IP Address linked")
-            print("\n \n \n")
+    
         
-    def printer(returned):
-        for records in returned:
-            for record in records:
-                try:
-                    if Searcher.SingleSocket(record[0]) != None: 
-                        try:
-                            print("Domain Name: " + str(record[0]))
-                        except:
-                            print("No Domain Name Listed")
-                        try:
-                            print("Creation Date: " + str(record[1]))
-                        except:
-                            print("No Domain Name Listed")
-                        try:
-                            print("Expiration Date: " + str(record[2]))
-                        except:
-                            print("No Expiration Date Listed")
-                        try:
-                            print("Last Updated: " + str(record[3]))
-                        except:
-                            print("No Expiration Date Listed")
-                        try:
-                            print("Registrar name: " + str(record[4]))
-                        except:
-                            print("No Registrar Name listed")
-                        try:
-                            print("Servers: " + str(record[5]))
-                        except:
-                            print("No Servers Listed")
-                        try:
-                            print("IP Address: " + str(record[6]))
-                        except:
-                            print("No IP Address linked")
-                        print("\n \n \n")
-                except:
-                    pass
-                    
-        
-#returned = Searcher.GetDomainInfoByName('Defendza')
-#Searcher.printer(returned)
-Searcher.Reverse('SpaceX','US','Europe','EU')
+    
+Util.printer(WhoIs.GetDomainInfoByName('defendza.com'))              
+#DNS.DNS_Lookup('defendza.com')
+#WhoIs.Reverse('SpaceX','US','Europe','EU')
