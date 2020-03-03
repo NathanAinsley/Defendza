@@ -37,8 +37,8 @@ class Util:
             for row in data_file:   
                 data = json.loads(row)
                 try:
-                    KeyName = (data['whoisusername'])
-                    Key = (data['whois'])
+                    KeyName = (data['WhoIsXMLUserName'])
+                    Key = (data['WhoIsXML'])
                     listkey = (KeyName,Key)
                 except KeyError:
                     print("Error loading value from json file, please delete the config.json file and run config.exe again please")

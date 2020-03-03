@@ -2,21 +2,25 @@ from shodan import Shodan
 import json
 import os
 import sys
-#https://github.com/achillean/shodan-python
-dir = (os.path.dirname(os.path.realpath(sys.argv[0])))
-Files = (dir+"/Config/config.json")
-with open(Files, encoding="utf8") as data_file:
-    for row in data_file:   
-        data = json.loads(row)
-        try:
-            Key = (data['Shodan'])
-        except KeyError:
-            print("Error loading value from json file, please delete the config.json file and run config.exe again please")
 
-api = Shodan(Key)
 
-class Shodan:
+class ShodanSearcher:
+    def KEY():
+        dir = (os.path.dirname(os.path.realpath(sys.argv[0])))
+        Files = (dir+"/Config/config.json")
+        with open(Files, encoding="utf8") as data_file:
+            for row in data_file:   
+                data = json.loads(row)
+                try:
+                    Key = (data['Shodan'])
+                except KeyError:
+                    print("Error loading value from json file, please delete the config.json file and run config.exe again please")
+        
+        
+        return(Key)
     def Shodan(v):
+        Key = ShodanSearcher.KEY()
+        api = Shodan(Key)
         ipinfo = api.host(v)
         cves = []
         try:
@@ -147,4 +151,4 @@ class Shodan:
             
         
         
-Shodan.printer(Shodan.Shodan('184.168.221.38'))
+ShodanSearcher.printer(ShodanSearcher.Shodan('184.168.221.38'))
