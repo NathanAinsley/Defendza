@@ -1,28 +1,35 @@
 import os
 import sys
 import json
-import glob
 import chwrapper
 _BASE_URL = "https://api.companieshouse.gov.uk/"
-dir = (os.path.dirname(os.path.realpath(sys.argv[0])))
-Files = (dir+"/Config/config.json")
-with open(Files, encoding="utf8") as data_file:
-    for row in data_file:   
-        data = json.loads(row)
-        try:
-            Key = (data['companieshouse'])
-        except KeyError:
-            print("Error loading value from json file, please delete the config.json file and run config.exe again please")
-print (Key)
+
 
 
 class Searcher():
+    def Key():
+        """Returns API Key stored within the Config File.
+
+        Args:
+          none.
+        """
+        dir = (os.path.dirname(os.path.realpath(sys.argv[0])))
+        Files = (dir+"/Config/config.json")
+        with open(Files, encoding="utf8") as data_file:
+            for row in data_file:   
+                data = json.loads(row)
+                try:
+                    Key = (data['companieshouse'])
+                except KeyError:
+                    print("Error loading value from json file, please delete the config.json file and run config.exe again please")
+            return Key
     def getCompanyNumberFromName(Name):
         """Returns string containing the company number.
 
         Args:
           Number (str): Company name to search on.
         """
+        Key = Searcher.Key()
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.search_companies(Name)
         r = r.json()
@@ -35,6 +42,7 @@ class Searcher():
         Args:
           Number (str): Company number to search on.
         """
+        Key = Searcher.Key()
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.address(Number)
         r = r.json()
@@ -67,6 +75,7 @@ class Searcher():
         Args:
           Number (str): Company number to search on.
         """
+        Key = Searcher.Key()
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.persons_significant_control(Number)
         r = r.json()
@@ -97,6 +106,7 @@ class Searcher():
         Args:
           Number (str): Company number to search on.
         """
+        Key = Searcher.Key()
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.filing_history(Number)
         r = r.json()
@@ -144,6 +154,7 @@ class Searcher():
         Args:
           Number (str): Company number to search on.
         """
+        Key = Searcher.Key()
         search_client=chwrapper.Search(access_token=Key)
         r = search_client.filing_history(Number)
         r = r.json()

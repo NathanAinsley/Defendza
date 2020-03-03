@@ -24,13 +24,8 @@ while finalcheck != "y":
         checker = str(input("(y/n)"))
     checker = "n"
     while checker !="y":
-        LinkedinAPI=str(input("Please enter the Linkedin Api Key: "))
-        print("Is " + LinkedinAPI + " correct?")
-        checker = str(input("(y/n)"))
-    checker = "n"
-    while checker !="y":
-        DNSMXAPI=str(input("Please enter the DNSMX Api Key: "))
-        print("Is " + DNSMXAPI + " correct?")
+        HunterAPI=str(input("Please enter the Hunter Api Key: "))
+        print("Is " + HunterAPI + " correct?")
         checker = str(input("(y/n)"))
     checker = "n"
     while checker !="y":
@@ -41,11 +36,10 @@ while finalcheck != "y":
 
 
 data = {  'companieshouse':CompaniesHouseAPI ,
-        'whois':WhoIsXMLUserName ,
-        'whois':WhoIsXML ,
+        'WhoIsXMLUserName':WhoIsXMLUserName ,
+        'WhoIsXML':WhoIsXML ,
         'Shodan':ShodanAPI ,
-        'linkedin':LinkedinAPI ,
-        'DNSXM':DNSMXAPI ,
+        'HunterAPI':HunterAPI ,
         'haveibeenpwned':PwnedAPI}
 with open('config.json','a+') as outfile:
     json.dump(data, outfile)
