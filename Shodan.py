@@ -148,7 +148,3 @@ class ShodanSearcher:
             print('cves: ' + str(v[11]))
         except:
             print("Error with CVEs")
-            
-        
-        
-ShodanSearcher.printer(ShodanSearcher.Shodan('184.168.221.38'))

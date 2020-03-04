@@ -113,11 +113,3 @@ class DNS:
         data = (urlopen(url).read().decode('utf8'))
         r=json.loads(data)
         return r
-    
-    
-        
-    
-Util.printer(WhoIs.GetDomainInfoByName('defendza.com'))              
-#DNS.DNS_Lookup('defendza.com')
-#WhoIs.Reverse('SpaceX','US','Europe','EU')
-#print(WhoIs.GetIP('Defendza.com'))

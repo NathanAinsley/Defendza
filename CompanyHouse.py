@@ -165,11 +165,3 @@ class Searcher():
         print(type(FilingAmount))
         return FilingAmount
 
-        
-        
-CompanyNum = Searcher.getCompanyNumberFromName('defendza')
-Searcher.getCompanyAddressFromNumber(CompanyNum)
-#Searcher.getCompanyStakeHoldersByNumber(CompanyNum)
-#Searcher.getFillingHistory(CompanyNum)
-#Searcher.getFilingAmount(CompanyNum)
-
