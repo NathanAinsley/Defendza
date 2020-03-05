@@ -64,5 +64,3 @@ class Searcher:
                 EmailBreach.append("There were no breaches for this email address")
                 breaches.append(EmailBreach)
         return breaches
-
-print (Searcher.HaveIBeenPwned(Searcher.Hunter('Defendza.com')))

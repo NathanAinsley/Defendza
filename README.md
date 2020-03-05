@@ -1,4 +1,4 @@
-# Defendza OSINT Program
+# ProfDev - OSINT Program
 
 ## Modules
 ### Companies House
