@@ -34,7 +34,6 @@ class Searcher():
         r = search_client.search_companies(Name)
         r = r.json()
         Company_Number = (r['items'][0]['company_number'])
-        print (Company_Number)
         return Company_Number
     def getCompanyAddressFromNumber(Number):
         """Returns string containing the company address.
@@ -67,7 +66,6 @@ class Searcher():
         except:
             Postcode = "Postcode Value Missing"
         Address = AddressLine1 +','+AddressLine2+','+Country+','+Locality+','+Postcode
-        print(Address)
         return Address
     def getCompanyStakeHoldersByNumber(Number):
         """Returns a list of all steakholders within the company.
@@ -98,7 +96,6 @@ class Searcher():
             member=str(Name)+","+str(DOB)
             Members.append(member)
             i+=1
-        print(Members)
         return Members
     def getFillingHistory(Number):
         """Returns a list of all files that have been filed by the company.
@@ -145,7 +142,6 @@ class Searcher():
                    "Barcode: " + str(Barcode) )
             i+=1
             Files.append(Doc)
-            print(Files)
         return Files
     
     def getFilingAmount(Number):
@@ -162,6 +158,5 @@ class Searcher():
             FilingAmount = r['total_count']
         except:
             FilingAmount = "No FilingAmount Found"
-        print(type(FilingAmount))
         return FilingAmount
 
