@@ -152,4 +152,3 @@ class ShodanSearcher:
         except:
             print("Error with CVEs")
             
-ShodanSearcher.printer(ShodanSearcher.Shodan("104.198.14.52"))
