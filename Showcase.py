@@ -9,6 +9,11 @@ from os.path import join
 from CompanyHouse import Searcher
 from haveibeenpwned import Searcher as SearcherPWN
 from WhoIs import WhoIs
+from WhoIs import DNS
+from Shodan import ShodanSearcher
+import os
+import simplejson
+import json
 
 with open ("OutputOSINT.txt", 'w+', encoding="utf8" ) as outfile:
         outfile.write("")
@@ -23,14 +28,67 @@ def WhoIsMenu():
     print("|          to the output file.               |")
     print("+============================================+")
     name = input()
+    #name = str("'"+name+"'")
     returned = WhoIs.GetDomainInfoByName(name)
     
-    with open ("OutputOSINT.txt", 'a', encoding="utf8" ) as outfile:
+    with open ("WhoIsOutput.json", 'w') as outfile:
+        json.dump(returned,outfile)
+        
+    osCommandString = "notepad.exe WhoIsOutput.json"
+    os.system(osCommandString)
+    WhoIsMainMenu()
     
     
 def ReverseWhoIsMenu():
-    return 0
-
+    print("+============================================+")
+    print("|        R E V E R S E - W H O - I S         |")
+    print("+============================================+")
+    print("|          Enter the details of a company    |")
+    print("|          This company will then be         |")
+    print("|          searched and results added        |")
+    print("|          to the output file.               |")
+    print("+============================================+")
+    term1 = input("Enter Search term 1: ")
+    term2 = input("Enter Search term 2: ")
+    term3 = input("Enter Exclude term 1: ")
+    term4 = input("Enter Exclude term 2: ")
+    
+    WhoIs.Reverse(term1,term2,term3,term4)
+    
+    osCommandString = "notepad.exe reverseWhoIsOutput.json"
+    os.system(osCommandString)
+    WhoIsMainMenu()
+    
+def IP():
+    print("+============================================+")
+    print("|                      I P                   |")
+    print("+============================================+")
+    print("|          Enter the domain of a company     |")
+    print("|          This company will then be         |")
+    print("|          searched and be outputted.        |")
+    print("+============================================+")
+    ip = input("Enter Domain to search IP:")
+    print("IP = " + WhoIs.GetIP(ip))
+    WhoIsMainMenu()
+    
+def DNs():
+    print("+============================================+")
+    print("|                     D N S                  |")
+    print("+============================================+")
+    print("|          Enter the domain of a company     |")
+    print("|          This company will then be         |")
+    print("|          searched and results added        |")
+    print("|          to the output file.               |")
+    print("+============================================+")
+    domain = input()
+    returned = DNS.DNS_Lookup(domain)
+    
+    with open ("DNSOutput.json", 'w') as outfile:
+        json.dump(returned,outfile)
+    osCommandString = "notepad.exe DNSOutput.json"
+    os.system(osCommandString)
+    WhoIsMainMenu()
+    
 def WhoIsMainMenu():
     print("+============================================+")
     print("|       W H O - I S - M A I N - M E N U      |")
@@ -39,7 +97,9 @@ def WhoIsMainMenu():
     print("|                                            |")
     print("|          1. WhoIs from domain name         |")
     print("|          2. Reverse WhoIs Search           |")
-    print("|          3. Return to main menu            |")
+    print("|          3. IP  Search                     |")
+    print("|          4. DNS Search                     |")
+    print("|          5. Return to main menu            |")
     print("|                                            |")
     print("+============================================+")
     choice = input()
@@ -50,8 +110,12 @@ def WhoIsMainMenu():
     if choice == 2:
         ReverseWhoIsMenu()
     if choice == 3:
+        IP()
+    if choice == 4:
+        DNs()
+    if choice == 5:
         mainmenu()
-    else:
+    if choice != (1,2,3,4,5):
         print("Error, please enter a valid number")
         
     
@@ -86,6 +150,7 @@ def CompaniesHouseMenu():
         outfile.write("|                                                                                                    |\n")
         outfile.write("+====================================================================================================+\n")
         outfile.write("\n")
+    
     mainmenu()
     
 def HIBP():
@@ -111,7 +176,26 @@ def HIBP():
             outfile.write("|                                                                                                    |\n")
         outfile.write("|                                                                                                    |\n")
         outfile.write("+====================================================================================================+\n")
- 
+    mainmenu()
+    
+def Shodan():
+    print("+============================================+")
+    print("|                  S H O D A N               |")
+    print("+============================================+")
+    print("|          Enter the IP  of a company        |")
+    print("|          This company will then be         |")
+    print("|          searched and results added        |")
+    print("|          to the output file.               |")
+    print("+============================================+")
+    domain = input()
+    
+    returned = ShodanSearcher.Shodan(domain)
+    with open ("ShodanOutput.json", 'w') as outfile:
+        json.dump(returned,outfile)
+    osCommandString = "notepad.exe ShodanOutput.json"
+    os.system(osCommandString)
+    mainmenu()
+    
 def mainmenu():
     print("+============================================+")
     print("|        O S I N T - M A I N - M E N U       |")
@@ -123,6 +207,10 @@ def mainmenu():
     print("|          1. Companies House Search         |")
     print("|          2. Have I been Pwned              |")
     print("|          3. Who Is                         |")
+    print("|          4. Shodan                         |")
+    print("|          5. Open Data                      |")
+    print("|                                            |")
+    print("|                                            |")
     print("+============================================+")
     
     choice = input()
@@ -133,7 +221,13 @@ def mainmenu():
     if choice == 2:
         HIBP()
     if choice == 3:
-        WhoIsMainMenu()        
+        WhoIsMainMenu()
+    if choice == 4:
+        Shodan()
+    if choice == 5:
+        osCommandString = "notepad.exe OutputOSINT.txt"
+        os.system(osCommandString)    
+        mainmenu()
     else:
         print("Error, please enter a valid number")
         mainmenu()

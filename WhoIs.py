@@ -113,3 +113,4 @@ class DNS:
         data = (urlopen(url).read().decode('utf8'))
         r=json.loads(data)
         return r
+    

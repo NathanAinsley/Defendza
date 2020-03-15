@@ -73,24 +73,27 @@ class ShodanSearcher:
         
         Data = ipinfo['data']
         for records in Data:
-            data = (records['vulns']).items()
-            for record in data:
-                CVES = []
-                cve = record[0]
-                CVES.append(cve)
-                
-                DATA = record[1]
-                
-                references = DATA['references']
-                CVES.append(references)
-                
-                verified = DATA['verified']
-                CVES.append(verified)
-                
-                cvss = DATA['cvss']
-                CVES.append(cvss)
-                
-                cves.append(CVES)
+            try:
+                data = (records['vulns']).items()
+                for record in data:
+                    CVES = []
+                    cve = record[0]
+                    CVES.append(cve)
+                    
+                    DATA = record[1]
+                    
+                    references = DATA['references']
+                    CVES.append(references)
+                    
+                    verified = DATA['verified']
+                    CVES.append(verified)
+                    
+                    cvss = DATA['cvss']
+                    CVES.append(cvss)
+                    
+                    cves.append(CVES)
+            except:
+                pass
                 
                 
             
@@ -148,3 +151,5 @@ class ShodanSearcher:
             print('cves: ' + str(v[11]))
         except:
             print("Error with CVEs")
+            
+ShodanSearcher.printer(ShodanSearcher.Shodan("104.198.14.52"))
