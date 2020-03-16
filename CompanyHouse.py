@@ -1,9 +1,14 @@
+"""
+Created on Mon Jan 27 03:58:01 2020
+
+@author: Nathan Ainsley 18028669
+"""
+
 import os
 import sys
 import json
 import chwrapper
 _BASE_URL = "https://api.companieshouse.gov.uk/"
-
 
 
 class Searcher():
@@ -160,3 +165,4 @@ class Searcher():
             FilingAmount = "No FilingAmount Found"
         return FilingAmount
 
+print(Searcher.getFilingAmount(Searcher.getCompanyNumberFromName("Defendza")))

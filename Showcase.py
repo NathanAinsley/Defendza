@@ -2,7 +2,7 @@
 """
 Created on Thu Mar 12 13:48:23 2020
 
-@author: Nathan
+@author: Nathan Ainsley 18028669
 """
 from os.path import join
 #from prettytable import PrettyTable

@@ -1,6 +1,13 @@
+"""
+Created on Tue Mar 03 18:15:56 2020
+
+@author: Joe Davies
+@author: Nathan Ainsley 18028669
+"""
 import requests
 import time
 import os, sys, json
+
 
 class Util:
     def Key():

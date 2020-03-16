@@ -1,3 +1,9 @@
+"""
+Created on Thu Mar 5 22:05:49 2020
+
+@author: Nathan Ainsley 18028669
+"""
+
 from shodan import Shodan
 import json
 import os
@@ -94,11 +100,7 @@ class ShodanSearcher:
                     cves.append(CVES)
             except:
                 pass
-                
-                
-            
-                
-            
+   
         
         Returned = (regional_code,country_code,country_name,city,postal_code,dma_code,last_update,tags,coords,org,ports,cves)
         return Returned

@@ -1,3 +1,9 @@
+"""
+Created on Thu Feb 20 20:32:00 2020
+
+@author: Nathan Ainsley 18028669
+"""
+
 from urllib.request import urlopen, pathname2url
 import json
 import os
@@ -6,7 +12,6 @@ import http.client as http
 from urllib.request import urlopen
 from pprint import pprint
 import socket
-
 
 
 class Util:
